@@ -56,15 +56,7 @@ class Login extends Component {
 
     render() {
         if (this.state.redirectTo)
-            return (
-                <Redirect
-                    to={
-                        this.props.prevPage
-                            ? this.props.prevPage
-                            : this.state.redirectTo
-                    }
-                />
-            );
+            return <Redirect to={this.state.redirectTo} />;
 
         return (
             <div className="centered">

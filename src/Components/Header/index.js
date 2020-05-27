@@ -44,14 +44,15 @@ class Header extends Component {
                 <div className="header_options">
                     {(!this.props.auth.user ||
                         (this.props.auth.user &&
-                            this.props.location.pathname != "/admin")) && (
-                        <p
-                            className="header_options_option"
-                            onClick={this.handleAdmin}
-                        >
-                            Admin
-                        </p>
-                    )}
+                            this.props.location.pathname != "/admin")) &&
+                        this.props.location.pathname != "/login" && (
+                            <p
+                                className="header_options_option"
+                                onClick={this.handleAdmin}
+                            >
+                                Admin
+                            </p>
+                        )}
                     {this.props.auth.user && (
                         <p
                             className="header_options_option"
@@ -79,3 +80,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+// TODO: figure out best way to redirect to admin
