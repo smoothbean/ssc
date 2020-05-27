@@ -7,7 +7,10 @@ class Button extends Component {
 
     render() {
         return (
-            <button className="button" onClick={this.props.onClick}>
+            <button
+                className={`button ${this.props.large ? "button--large" : ""}`}
+                onClick={this.props.onClick}
+            >
                 {this.props.text}
             </button>
         );

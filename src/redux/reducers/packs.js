@@ -10,13 +10,19 @@ const initialState = [
 ];
 
 export function packs(state = initialState, action) {
+    let newPacks = [];
     switch (action.type) {
         case ADD_PACK:
-            return initialState;
+            let id = 1;
+            state.forEach((pack) => {
+                newPacks.push({ id, size: pack.size });
+                id++;
+            });
+            newPacks.push({ id, size: action.size });
+            return newPacks;
         case REMOVE_PACK:
-            let newPacks = [];
             state.forEach((pack, i) => {
-                if (pack.id != action.id)
+                if (pack.id !== Number(action.id))
                     newPacks.push({ id: i + 1, size: pack.size });
             });
             return newPacks;

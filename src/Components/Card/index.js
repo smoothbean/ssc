@@ -10,7 +10,7 @@ class Card extends Component {
     render() {
         if (this.props.add)
             return (
-                <div className="card card--add">
+                <div className="card card--add" onClick={this.props.onClick}>
                     <div className="card_body card--add_body">
                         Add a {this.props.title}
                     </div>

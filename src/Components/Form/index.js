@@ -14,7 +14,12 @@ class Form extends Component {
 
     render() {
         return (
-            <form onSubmit={this.props.onSubmit} className="form">
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                }}
+                className={`form ${this.props.modal ? "form--modal" : ""}`}
+            >
                 {this.props.inputs.map((i) => (
                     <Input
                         type={i.type}
@@ -23,6 +28,7 @@ class Form extends Component {
                         onChange={this.onChange}
                         key={i.label}
                         name={i.name}
+                        modal={this.props.modal}
                     />
                 ))}
                 {this.props.children}

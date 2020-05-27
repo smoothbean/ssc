@@ -17,10 +17,9 @@ class Header extends Component {
     // Listen for route change
     componentDidUpdate(prevProps) {
         // If the route has changed
-        console.log(this.props);
         if (this.props.location !== prevProps.location) {
             this.setState({ redirectTo: false });
-            if (this.props.location.pathname == "/admin") {
+            if (this.props.location.pathname === "/admin") {
                 this.props.updatePrevPage("/admin");
             } else {
                 this.props.updatePrevPage(false);
@@ -44,8 +43,8 @@ class Header extends Component {
                 <div className="header_options">
                     {(!this.props.auth.user ||
                         (this.props.auth.user &&
-                            this.props.location.pathname != "/admin")) &&
-                        this.props.location.pathname != "/login" && (
+                            this.props.location.pathname !== "/admin")) &&
+                        this.props.location.pathname !== "/login" && (
                             <p
                                 className="header_options_option"
                                 onClick={this.handleAdmin}

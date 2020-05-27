@@ -8,7 +8,7 @@ class Input extends Component {
     render() {
         return (
             <input
-                className="input"
+                className={`input ${this.props.modal ? "input--large" : ""}`}
                 type={this.props.type}
                 placeholder={this.props.placeholder}
                 onChange={this.props.onChange}
