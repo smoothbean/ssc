@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 
 import Login from "./Containers/Pages/Login";
 import Order from "./Containers/Pages/Order";
+import Admin from "./Containers/Pages/Admin";
+import Logout from "./Containers/Pages/Logout";
 
 import Header from "./Components/Header/index";
 
@@ -23,15 +25,26 @@ class App extends Component {
                 <div className="App">
                     <Header />
                     <Switch>
-                        <Route path="/login" exact component={Login} />
+                        <Route path="/logout" exact component={Logout} />
+                        <Route
+                            path="/login"
+                            exact
+                            render={() => {
+                                return this.props.auth.user ? (
+                                    <Redirect to="/" />
+                                ) : (
+                                    <Login />
+                                );
+                            }}
+                        />
                         <Route
                             exact
                             path="/admin"
                             render={() => {
-                                return true ? (
+                                return !this.props.auth.isAdmin ? (
                                     <Redirect to="/login" />
                                 ) : (
-                                    <Redirect to="/order" />
+                                    <Admin />
                                 );
                             }}
                         />

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { Redirect } from "react-router-dom";
+import { bindActionCreators } from "redux";
+
 import Form from "../../Components/Form";
 
-import { withRouter } from "react-router-dom";
+import { updateAuth } from "./../../redux/actions/auth";
 
-@withRouter
 class Login extends Component {
     constructor() {
         super();
@@ -14,6 +16,36 @@ class Login extends Component {
             password: "",
         };
         this.onChange = this.onChange.bind(this);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(e) {
+        e.preventDefault();
+        const { username, password } = this.state;
+
+        if (!username || !password)
+            return alert("Please enter your username and password");
+
+        if (password == "password") {
+            if (username == "user") {
+                this.props.updateAuth({
+                    user: { username: "user", email: "user@test.co" },
+                });
+                return this.setState({ redirectTo: "/order" });
+            }
+            if (username == "admin") {
+                this.props.updateAuth({
+                    user: {
+                        username: "admin",
+                        email: "admin@test.co",
+                    },
+                    isAdmin: true,
+                });
+                return this.setState({ redirectTo: "/admin" });
+            }
+        }
+
+        alert("Incorrect details");
     }
 
     onChange(name, val) {
@@ -23,6 +55,17 @@ class Login extends Component {
     }
 
     render() {
+        if (this.state.redirectTo)
+            return (
+                <Redirect
+                    to={
+                        this.props.prevPage
+                            ? this.props.prevPage
+                            : this.state.redirectTo
+                    }
+                />
+            );
+
         return (
             <div className="centered">
                 <div className="title">login</div>
@@ -33,15 +76,19 @@ class Login extends Component {
                             type: "text",
                             name: "username",
                             placeholder: "Enter your username",
+                            label: "Username",
                         },
                         {
                             type: "password",
                             name: "password",
                             placeholder: "Enter your password",
+                            label: "Password",
                         },
                     ]}
                 >
-                    <button className="button">Login</button>
+                    <button className="button" onClick={this.onClick}>
+                        Login
+                    </button>
                 </Form>
             </div>
         );
@@ -49,8 +96,14 @@ class Login extends Component {
 }
 
 const mapStateToProps = (store) => {
-    const { auth, loading } = store;
-    return { auth, loading };
+    const { auth, loading, prevPage } = store;
+    return { auth, loading, prevPage };
 };
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateAuth: bindActionCreators(updateAuth, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

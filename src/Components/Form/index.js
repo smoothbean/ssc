@@ -21,6 +21,8 @@ class Form extends Component {
                         label={i.label}
                         placeholder={i.placeholder}
                         onChange={this.onChange}
+                        key={i.label}
+                        name={i.name}
                     />
                 ))}
                 {this.props.children}

@@ -16,20 +16,41 @@ $secondary: #9c56c4;
 }
 
 .header {
-    z-index: 1000;
     height: 70px;
     width: 100%;
     background-image: url("./sweets.jpg");
     background-position: 20% 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     &_text {
         color: white;
-        font-size: 30px;
+        font-size: 28px;
     }
 }
 
+.header_options {
+    margin-top: 30px;
+    width: 100%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 80%;
+
+    &_option {
+        color: white;
+        cursor: pointer;
+    }
+}
+
+p {
+    margin: 0px;
+}
+
 .title {
-    margin-bottom: 30px;
+    margin: 30px 0 30px 0;
 }
 
 .centered {
@@ -37,7 +58,7 @@ $secondary: #9c56c4;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     margin-top: 8%;
 }
 
@@ -56,7 +77,7 @@ $secondary: #9c56c4;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30%;
+    width: 60%;
 }
 
 input {
@@ -77,10 +98,24 @@ input {
 @media (min-width: 900px) {
     .header {
         height: 140px;
-        background-position: 20% 10%;
+        background-position: 20% 20%;
 
         &_text {
             font-size: 60px;
+            margin-top: 0px;
         }
+    }
+
+    .header_options {
+        left: 50px;
+        font-size: 100%;
+    }
+
+    .centered {
+        width: 50%;
+    }
+
+    .form {
+        width: 30%;
     }
 }

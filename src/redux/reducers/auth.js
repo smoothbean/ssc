@@ -2,9 +2,8 @@ import { UPDATE_AUTH } from "./../actions/auth";
 
 // Define initial state
 const initialState = {
-    token: null,
     isAdmin: false,
-    user: {},
+    user: false,
 };
 
 export function auth(state = initialState, action) {
