@@ -1,5 +1,4 @@
-import React from "react";
-import logo from "./spog.png";
+import React, { Component } from "react";
 import "./App.css";
 
 import {
@@ -10,14 +9,46 @@ import {
 } from "react-router-dom";
 import { connect } from "react-redux";
 
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-            </header>
-        </div>
-    );
+import Login from "./Containers/Pages/Login";
+import Order from "./Containers/Pages/Order";
+
+import Header from "./Components/Header/index";
+
+import "./App.scss";
+
+class App extends Component {
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    <Header />
+                    <Switch>
+                        <Route path="/login" exact component={Login} />
+                        <Route
+                            exact
+                            path="/admin"
+                            render={() => {
+                                return true ? (
+                                    <Redirect to="/login" />
+                                ) : (
+                                    <Redirect to="/order" />
+                                );
+                            }}
+                        />
+                        <Route exact component={Order} />
+                    </Switch>
+                </div>
+            </Router>
+        );
+    }
+}
+
+{
+    /* <Route
+path="/order"
+exact
+children={<PlayerDashboard />}
+/> */
 }
 
 const mapStateToProps = (store) => {

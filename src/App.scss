@@ -1,0 +1,25 @@
+.page_loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(0, 0, 0, 0.6); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: wait;
+}
+
+.header {
+    z-index: 1000;
+    height: 140px;
+    width: 100%;
+    background-image: url("./sweets.jpg");
+    background-position: 20% 10%;
+
+    &_text {
+        font-size: 60px;
+    }
+}
