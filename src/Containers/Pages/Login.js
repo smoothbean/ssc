@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 
 import Form from "../../Components/Form";
+import Button from "../../Components/Button";
 
 import { updateAuth } from "./../../redux/actions/auth";
 
@@ -78,9 +79,7 @@ class Login extends Component {
                         },
                     ]}
                 >
-                    <button className="button" onClick={this.onClick}>
-                        Login
-                    </button>
+                    <Button onClick={this.onClick} text="login" />
                 </Form>
             </div>
         );

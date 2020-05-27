@@ -1,0 +1,56 @@
+$primary: #ffe6fc;
+$secondary: #9c56c4;
+
+.cards {
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    // background-color: white;
+    border-radius: 5px;
+    border: 2px solid $secondary;
+    margin: 20px;
+    min-width: 200px;
+
+    &_title {
+        background-color: $secondary;
+        color: white;
+    }
+
+    &_body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-height: 70px;
+        padding-bottom: 20px;
+        background-color: $primary;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    &--add {
+        cursor: pointer;
+        border: 2px dashed grey;
+        color: grey;
+
+        &_title {
+            background-color: $primary;
+            color: grey;
+        }
+
+        &_body {
+            padding-bottom: 0px;
+        }
+    }
+}
+
+.add {
+    font-size: 40px;
+}
+
+@media (min-width: 900px) {
+    .cards {
+        flex-direction: row;
+    }
+}

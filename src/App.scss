@@ -16,7 +16,7 @@ $secondary: #9c56c4;
 }
 
 .header {
-    height: 70px;
+    height: 90px;
     width: 100%;
     background-image: url("./sweets.jpg");
     background-position: 20% 20%;
@@ -63,9 +63,15 @@ p {
     margin-top: 8%;
 }
 
+.page {
+    margin-top: 50px;
+}
+
 .button {
+    cursor: pointer;
     min-width: 200px;
     max-width: 300px;
+    max-height: 30px;
     background-color: $secondary;
     color: white;
     border-radius: 5px;
