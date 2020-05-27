@@ -28,7 +28,7 @@ class Admin extends Component {
     componentDidMount() {
         setTimeout(() => {
             this.setState({ loading: false });
-        }, 2000);
+        }, 1500);
     }
 
     handleDelete(id) {

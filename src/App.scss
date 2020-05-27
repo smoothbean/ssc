@@ -28,6 +28,10 @@ $secondary: #9c56c4;
     &_text {
         color: white;
         font-size: 28px;
+
+        &:hover {
+            color: $primary;
+        }
     }
 }
 
@@ -43,6 +47,13 @@ $secondary: #9c56c4;
     &_option {
         color: white;
         cursor: pointer;
+        border-bottom: 2px solid $primary;
+        padding-bottom: 5px;
+
+        &:hover {
+            color: $primary;
+            border-bottom-color: $secondary;
+        }
     }
 }
 
@@ -71,6 +82,17 @@ p {
 
 .page {
     margin-top: 50px;
+}
+
+.clues {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+
+    p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
 }
 
 .button {

@@ -10,6 +10,7 @@ class Header extends Component {
     constructor() {
         super();
         this.state = {};
+        this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
         this.handleAdmin = this.handleAdmin.bind(this);
     }
@@ -31,6 +32,10 @@ class Header extends Component {
         this.setState({ redirectTo: "/logout" });
     }
 
+    handleLogin() {
+        this.setState({ redirectTo: "/login" });
+    }
+
     handleAdmin() {
         this.setState({ redirectTo: "/admin" });
     }
@@ -43,6 +48,7 @@ class Header extends Component {
                 <div className="header_options">
                     {(!this.props.auth.user ||
                         (this.props.auth.user &&
+                            this.props.auth.isAdmin &&
                             this.props.location.pathname !== "/admin")) &&
                     this.props.location.pathname !== "/login" ? (
                         <p
@@ -62,7 +68,12 @@ class Header extends Component {
                             Logout
                         </p>
                     ) : (
-                        <p className="header_options_option"></p>
+                        <p
+                            className="header_options_option"
+                            onClick={this.handleLogin}
+                        >
+                            Login
+                        </p>
                     )}
                 </div>
                 <Link to="/">

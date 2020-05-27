@@ -61,7 +61,11 @@ class Login extends Component {
 
         return (
             <div className="centered">
-                <div className="title">login</div>
+                <div className="title">Login</div>
+                <div className="clues">
+                    <p>Admin: admin&password</p>
+                    <p>User: user&password</p>
+                </div>
                 <Form
                     onChange={this.onChange}
                     inputs={[
@@ -79,7 +83,7 @@ class Login extends Component {
                         },
                     ]}
                 >
-                    <Button onClick={this.onClick} text="login" />
+                    <Button onClick={this.onClick} text="Login" />
                 </Form>
             </div>
         );
