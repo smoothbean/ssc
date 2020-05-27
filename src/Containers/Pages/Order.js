@@ -21,7 +21,7 @@ class Order extends Component {
     render() {
         const { loading } = this.state;
         if (loading) return <Loading />;
-        return <Form>order</Form>;
+        return <p>order</p>;
     }
 }
 

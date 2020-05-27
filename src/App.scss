@@ -1,3 +1,6 @@
+$primary: #ffe6fc;
+$secondary: #9c56c4;
+
 .page_loading {
     position: fixed;
     top: 0;
@@ -14,12 +17,70 @@
 
 .header {
     z-index: 1000;
-    height: 140px;
+    height: 70px;
     width: 100%;
     background-image: url("./sweets.jpg");
-    background-position: 20% 10%;
+    background-position: 20% 20%;
 
     &_text {
-        font-size: 60px;
+        color: white;
+        font-size: 30px;
+    }
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 8%;
+}
+
+.button {
+    min-width: 200px;
+    max-width: 300px;
+    background-color: $secondary;
+    color: white;
+    border-radius: 5px;
+    font-size: 50%;
+    padding: 5px 0 5px 0;
+    margin-top: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+}
+
+input {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: $primary;
+    border: none;
+    border-bottom: 2px solid $secondary;
+    padding-bottom: 10px;
+    font-size: 60%;
+    color: $secondary;
+
+    &::placeholder {
+        color: $secondary;
+    }
+}
+
+@media (min-width: 900px) {
+    .header {
+        height: 140px;
+        background-position: 20% 10%;
+
+        &_text {
+            font-size: 60px;
+        }
     }
 }
