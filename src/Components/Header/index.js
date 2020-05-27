@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect, Link, withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
 
 import { updatePrevPage } from "../../redux/actions/prevPage";
@@ -44,24 +44,30 @@ class Header extends Component {
                     {(!this.props.auth.user ||
                         (this.props.auth.user &&
                             this.props.location.pathname !== "/admin")) &&
-                        this.props.location.pathname !== "/login" && (
-                            <p
-                                className="header_options_option"
-                                onClick={this.handleAdmin}
-                            >
-                                Admin
-                            </p>
-                        )}
-                    {this.props.auth.user && (
+                    this.props.location.pathname !== "/login" ? (
+                        <p
+                            className="header_options_option"
+                            onClick={this.handleAdmin}
+                        >
+                            Admin
+                        </p>
+                    ) : (
+                        <p className="header_options_option"></p>
+                    )}
+                    {this.props.auth.user ? (
                         <p
                             className="header_options_option"
                             onClick={this.handleLogout}
                         >
                             Logout
                         </p>
+                    ) : (
+                        <p className="header_options_option"></p>
                     )}
                 </div>
-                <p className="header_text">Simons Sweet Co.</p>
+                <Link to="/">
+                    <p className="header_text">Simons Sweet Co.</p>
+                </Link>
             </div>
         );
     }

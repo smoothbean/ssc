@@ -18,7 +18,9 @@ class Form extends Component {
                 onSubmit={(e) => {
                     e.preventDefault();
                 }}
-                className={`form ${this.props.modal ? "form--modal" : ""}`}
+                className={`form ${this.props.modal ? "form--modal" : ""}${
+                    this.props.full ? "form--full" : ""
+                }`}
             >
                 {this.props.inputs.map((i) => (
                     <Input
@@ -28,6 +30,7 @@ class Form extends Component {
                         onChange={this.onChange}
                         key={i.label}
                         name={i.name}
+                        full={this.props.full}
                         modal={this.props.modal}
                     />
                 ))}
