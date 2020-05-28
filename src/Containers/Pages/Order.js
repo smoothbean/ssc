@@ -7,6 +7,7 @@ import Card from "../../Components/Card";
 import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Modal from "../../Components/Modal";
+import { diff } from "semver";
 
 class Order extends Component {
     constructor() {
@@ -63,6 +64,23 @@ class Order extends Component {
 
         while (remainingSize > 0) {
             let ratedPacks = this.getBestPacksForSize(remainingSize);
+
+            let lowestCanCoverIt = true;
+            // Check if all the Qtys are 1
+            ratedPacks.forEach((pack) => {
+                if (pack.qty !== 1) lowestCanCoverIt = false;
+            });
+
+            // If it only takes one of any of our packs then our lowest qty pack can cover it
+            if (lowestCanCoverIt) {
+                return this.setState({
+                    itemised: [{ qty: 1, pack: ratedPacks[0].pack }],
+                    total: ratedPacks[0].pack.size,
+                    isOrderSuccessModalOpen: true,
+                });
+            }
+
+            // Else check the wastage of each option
 
             // Sort packs , first by Qty needed to fulfill size and then by amount of sweets it will provide
             // Doing this means it prefers the least amount of packaging
