@@ -76,7 +76,7 @@ class Header extends Component {
                         </p>
                     ) : null}
                 </div>
-                <Link to="/">
+                <Link to="/ssc">
                     <p className="header_text">Simons Sweet Co.</p>
                 </Link>
             </div>
