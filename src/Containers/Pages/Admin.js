@@ -40,7 +40,7 @@ class Admin extends Component {
     handleAdd() {
         if (!this.state.size) return alert("Please enter a qty");
 
-        if (this.props.packs.find((p) => p.size == this.state.size))
+        if (this.props.packs.find((p) => p.size === Number(this.state.size)))
             return alert("That qty. already exists");
 
         this.props.addPack(this.state.size);

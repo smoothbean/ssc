@@ -7,7 +7,6 @@ import Card from "../../Components/Card";
 import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Modal from "../../Components/Modal";
-import { diff } from "semver";
 
 class Order extends Component {
     constructor() {
@@ -38,7 +37,7 @@ class Order extends Component {
             return this.setState({ redirectTo: "/login" });
         if (this.props.auth.isAdmin) return alert("Login to a user account.");
         this.setState({
-            size: this.props.packs.find((p) => p.id == Number(id)).size,
+            size: this.props.packs.find((p) => p.id === Number(id)).size,
             isOrderSuccessModalOpen: true,
         });
     }
@@ -51,7 +50,7 @@ class Order extends Component {
         if (!Number(this.state.size))
             return alert("Please enter a numeric value.");
 
-        if (this.props.packs.find((p) => p.size == Number(this.state.size))) {
+        if (this.props.packs.find((p) => p.size === Number(this.state.size))) {
             return this.setState({
                 isOrderSuccessModalOpen: true,
             });

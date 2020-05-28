@@ -3,10 +3,6 @@ import React, { Component } from "react";
 import "./card.scss";
 
 class Card extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         if (this.props.add)
             return (

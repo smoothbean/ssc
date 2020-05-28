@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import * as ReactModal from "react-modal";
 import "./modal.scss";
 
@@ -7,10 +6,6 @@ import "./modal.scss";
 ReactModal.setAppElement("#root");
 
 class Modal extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <ReactModal

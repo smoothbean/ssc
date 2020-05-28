@@ -56,14 +56,6 @@ class App extends Component {
     }
 }
 
-{
-    /* <Route
-path="/order"
-exact
-children={<PlayerDashboard />}
-/> */
-}
-
 const mapStateToProps = (store) => {
     const { auth, loading } = store;
     return { auth, loading };
