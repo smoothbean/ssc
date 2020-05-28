@@ -29,6 +29,10 @@ class Order extends Component {
         }, 1500);
     }
 
+    onChange(name, val) {
+        this.setState({ [name]: val });
+    }
+
     handleOrder(id) {
         if (!this.props.auth.user)
             return this.setState({ redirectTo: "/login" });
@@ -53,39 +57,117 @@ class Order extends Component {
             });
         }
 
-        console.log(this.state.size, this.props.packs);
+        let size = Number(this.state.size);
+        let remainingSize = size;
+        let itemised = [];
 
-        // Order by size/qty
-        let sortedPacks = this.props.packs.sort(
-            (a, b) => Number(a.size) - Number(b.size)
-        );
+        let ratedPacks = this.getBestPacksForSize(remainingSize);
 
-        console.log(sortedPacks);
+        // Sort packs , first by Qty needed to fulfill size and then by amount of sweets it will provide
+        // Doing this means it prefers the least amount of packaging
+        let sortQtyAndSweets = ratedPacks
+            .sort((a, b) => a.qty - b.qty)
+            .sort((a, b) => a.sweets - b.sweets);
 
-        let remainingSize = Number(this.state.size);
+        let chosenPack = false;
+        // Loop through the sorted pack
+        sortQtyAndSweets.forEach((item, key) => {
+            if (!chosenPack) {
+                // Check the wastage (excess sweets)
+                let wastage = remainingSize - item.sweets;
 
-        // Do an initial check to see if any pack covers it
-        let matchingPack = false;
-        this.props.packs.forEach((pack) => {
-            if (pack.size > remainingSize && !matchingPack) {
-                matchingPack = pack;
+                // Get the difference between wastage and 0
+                let difference = Math.abs(0 - wastage);
+
+                console.log(wastage, difference, "-");
+
+                // Check that the difference is no greater than the remaining size
+                if (difference < remainingSize) {
+                    chosenPack = item.pack;
+                } else {
+                    // If the wastage is more than the remaining order than try and go for a lower pack
+
+                    // Check a lower pack exists
+                    if (sortQtyAndSweets[key + 1]) {
+                        return;
+                    } else {
+                        // If a lower pack doesnt exist , use this one as it is the last
+                        chosenPack = item.pack;
+                    }
+                }
             }
         });
 
-        if (matchingPack) {
-            return this.setState({
-                isOrderSuccessModalOpen: true,
-                itemised: [{ qty: 1, size: matchingPack.size }],
-            });
-        }
+        console.log(ratedPacks, sortQtyAndSweets, chosenPack);
+
+        // let sizes = [];
+        // let sweets = {};
 
         // while (remainingSize > 0) {
-        //     // If its the first check then get the biggest pack possible
+        //     // See how many it would take of each pack size for the remaining size
+        //     this.props.packs.forEach((pack) => {
+        //         sizes.push({
+        //             pack,
+        //             qty: remainingSize / pack.size,
+        //         });
+        //     });
+
+        //     // Create a rating for each pack
+        //     let ratings = [];
+        //     sizes.forEach((s) => {
+        //         let rating = 0;
+        //         let obj = {
+        //             pack: s.pack,
+        //             rating: s.qty,
+        //         };
+        //         // Do not add the rating if it is 0
+        //         console.log(obj, s.qty, "----");
+        //         ratings.push(obj);
+        //     });
+
+        //     // Get the closest rating to 1
+        //     let closestToZero = ratings.sort(
+        //         (a, b) => Math.abs(1 - a.rating) - Math.abs(1 - b.rating)
+        //     );
+        //     let bestRating = closestToZero[0];
+
+        //     // If it is already itemised then increase qty
+        //     let qKey = Object.keys(itemised).find(
+        //         (i) => itemised[i].size === bestRating.pack.size
+        //     );
+        //     if (qKey) {
+        //         itemised[qKey].qty++;
+        //     } else {
+        //         // Else push it to the arr
+        //         itemised.push({ qty: 1, pack: bestRating.pack });
+        //     }
+
+        //     console.log(ratings, bestRating);
+
+        //     remainingSize = remainingSize - bestRating.pack.size;
+        //     sizes = [];
+        //     sweets = {};
         // }
+
+        this.setState({
+            itemised,
+            isOrderSuccessModalOpen: true,
+        });
     }
 
-    onChange(name, val) {
-        this.setState({ [name]: val });
+    getBestPacksForSize(size) {
+        let sizes = [];
+        this.props.packs.forEach((pack) => {
+            // Calculate qty of packs needed for given order size
+            let qty = Math.ceil(size / pack.size);
+            sizes.push({
+                pack,
+                qty,
+                // Calculate the total amount of sweets this will provide
+                sweets: qty * pack.size,
+            });
+        });
+        return sizes;
     }
 
     toggleOrderSuccessModal() {
@@ -148,9 +230,9 @@ class Order extends Component {
                         <p className="title">Order Successful</p>
                         <p className="title">Qty: {this.state.size}</p>
                         {this.state.itemised &&
-                            this.state.itemised.map((i) => (
-                                <p className="item">
-                                    x{i.qty} - {i.size}
+                            this.state.itemised.map((i, key) => (
+                                <p key={key} className="item">
+                                    x{i.qty} - {i.pack.size}
                                 </p>
                             ))}
                         <Button
