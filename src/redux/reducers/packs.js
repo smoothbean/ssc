@@ -21,9 +21,12 @@ export function packs(state = initialState, action) {
             newPacks.push({ id, size: Number(action.size) });
             return newPacks;
         case REMOVE_PACK:
-            state.forEach((pack, i) => {
-                if (pack.id !== Number(action.id))
-                    newPacks.push({ id: i + 1, size: pack.size });
+            let i = 1;
+            state.forEach((pack) => {
+                if (pack.id !== Number(action.id)) {
+                    newPacks.push({ id: i, size: pack.size });
+                    i++;
+                }
             });
             return newPacks;
         default:
