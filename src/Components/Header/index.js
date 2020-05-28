@@ -42,7 +42,7 @@ class Header extends Component {
 
     render() {
         if (this.state.redirectTo)
-            return <Redirect to={this.state.redirectTo} />;
+            return <Redirect to={{ pathname: this.state.redirectTo }} />;
         return (
             <div className="header">
                 <div className="header_options">
