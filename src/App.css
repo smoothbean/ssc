@@ -15,7 +15,11 @@ body {
 
 .App-logo {
     height: 15vmin;
+    width: 15vmin;
     pointer-events: none;
+    background-image: url("./spog.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 @media (prefers-reduced-motion: no-preference) {
