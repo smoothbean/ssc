@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.3034667c.chunk.css",
-    "main.js": "/static/js/main.1810849d.chunk.js",
-    "main.js.map": "/static/js/main.1810849d.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.654e6ed5.js",
-    "runtime-main.js.map": "/static/js/runtime-main.654e6ed5.js.map",
-    "static/js/2.bb47a19f.chunk.js": "/static/js/2.bb47a19f.chunk.js",
-    "static/js/2.bb47a19f.chunk.js.map": "/static/js/2.bb47a19f.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.04047deb06d3bbe6eb3d826a2fa7feb4.js": "/precache-manifest.04047deb06d3bbe6eb3d826a2fa7feb4.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.3034667c.chunk.css.map": "/static/css/main.3034667c.chunk.css.map",
-    "static/js/2.bb47a19f.chunk.js.LICENSE.txt": "/static/js/2.bb47a19f.chunk.js.LICENSE.txt",
-    "static/media/spog.png": "/static/media/spog.2ef8f0ae.png",
-    "static/media/App.scss": "/static/media/sweets.1b1fe88e.jpg"
+    "main.css": "/smoothbean.github.io/ssc/static/css/main.758c8f1a.chunk.css",
+    "main.js": "/smoothbean.github.io/ssc/static/js/main.f0b34d10.chunk.js",
+    "main.js.map": "/smoothbean.github.io/ssc/static/js/main.f0b34d10.chunk.js.map",
+    "runtime-main.js": "/smoothbean.github.io/ssc/static/js/runtime-main.d094b904.js",
+    "runtime-main.js.map": "/smoothbean.github.io/ssc/static/js/runtime-main.d094b904.js.map",
+    "static/js/2.bb47a19f.chunk.js": "/smoothbean.github.io/ssc/static/js/2.bb47a19f.chunk.js",
+    "static/js/2.bb47a19f.chunk.js.map": "/smoothbean.github.io/ssc/static/js/2.bb47a19f.chunk.js.map",
+    "index.html": "/smoothbean.github.io/ssc/index.html",
+    "precache-manifest.1172d8adfe175231dc8cafb748940039.js": "/smoothbean.github.io/ssc/precache-manifest.1172d8adfe175231dc8cafb748940039.js",
+    "service-worker.js": "/smoothbean.github.io/ssc/service-worker.js",
+    "static/css/main.758c8f1a.chunk.css.map": "/smoothbean.github.io/ssc/static/css/main.758c8f1a.chunk.css.map",
+    "static/js/2.bb47a19f.chunk.js.LICENSE.txt": "/smoothbean.github.io/ssc/static/js/2.bb47a19f.chunk.js.LICENSE.txt",
+    "static/media/spog.png": "/smoothbean.github.io/ssc/static/media/spog.2ef8f0ae.png",
+    "static/media/App.scss": "/smoothbean.github.io/ssc/static/media/sweets.1b1fe88e.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.654e6ed5.js",
+    "static/js/runtime-main.d094b904.js",
     "static/js/2.bb47a19f.chunk.js",
-    "static/css/main.3034667c.chunk.css",
-    "static/js/main.1810849d.chunk.js"
+    "static/css/main.758c8f1a.chunk.css",
+    "static/js/main.f0b34d10.chunk.js"
   ]
 }
