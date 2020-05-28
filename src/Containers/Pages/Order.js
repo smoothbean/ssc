@@ -32,7 +32,7 @@ class Order extends Component {
     handleOrder(id) {
         if (!this.props.auth.user)
             return this.setState({ redirectTo: "/login" });
-        if (this.props.auth.isAdmin) return alert("Login to a user account");
+        if (this.props.auth.isAdmin) return alert("Login to a user account.");
         this.setState({
             size: this.props.packs.find((p) => p.id == Number(id)).size,
             isOrderSuccessModalOpen: true,
@@ -42,7 +42,7 @@ class Order extends Component {
     handleCustomOrder() {
         if (!this.props.auth.user)
             return this.setState({ redirectTo: "/login" });
-        if (this.props.auth.isAdmin) return alert("Login to a user account");
+        if (this.props.auth.isAdmin) return alert("Login to a user account.");
         if (!this.state.size) return alert("Please enter a qty.");
         if (!Number(this.state.size))
             return alert("Please enter a numeric value.");
@@ -52,6 +52,36 @@ class Order extends Component {
                 isOrderSuccessModalOpen: true,
             });
         }
+
+        console.log(this.state.size, this.props.packs);
+
+        // Order by size/qty
+        let sortedPacks = this.props.packs.sort(
+            (a, b) => Number(a.size) - Number(b.size)
+        );
+
+        console.log(sortedPacks);
+
+        let remainingSize = Number(this.state.size);
+
+        // Do an initial check to see if any pack covers it
+        let matchingPack = false;
+        this.props.packs.forEach((pack) => {
+            if (pack.size > remainingSize && !matchingPack) {
+                matchingPack = pack;
+            }
+        });
+
+        if (matchingPack) {
+            return this.setState({
+                isOrderSuccessModalOpen: true,
+                itemised: [{ qty: 1, size: matchingPack.size }],
+            });
+        }
+
+        // while (remainingSize > 0) {
+        //     // If its the first check then get the biggest pack possible
+        // }
     }
 
     onChange(name, val) {
@@ -117,6 +147,12 @@ class Order extends Component {
                     <div className="col">
                         <p className="title">Order Successful</p>
                         <p className="title">Qty: {this.state.size}</p>
+                        {this.state.itemised &&
+                            this.state.itemised.map((i) => (
+                                <p className="item">
+                                    x{i.qty} - {i.size}
+                                </p>
+                            ))}
                         <Button
                             text="Buy more sweets"
                             onClick={this.toggleOrderSuccessModal}
