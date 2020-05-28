@@ -170,7 +170,7 @@ class Order extends Component {
                     Custom Order
                     {!this.props.auth.user ? (
                         <span>
-                            - <Link to="ssc/login">Login</Link> to order
+                            - <Link to="/ssc/login">Login</Link> to order
                         </span>
                     ) : (
                         ""
