@@ -67,14 +67,14 @@ class Header extends Component {
                         >
                             Logout
                         </p>
-                    ) : (
+                    ) : this.props.location.pathname !== "/login" ? (
                         <p
                             className="header_options_option"
                             onClick={this.handleLogin}
                         >
                             Login
                         </p>
-                    )}
+                    ) : null}
                 </div>
                 <Link to="/">
                     <p className="header_text">Simons Sweet Co.</p>
