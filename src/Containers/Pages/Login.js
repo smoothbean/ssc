@@ -32,7 +32,7 @@ class Login extends Component {
                 this.props.updateAuth({
                     user: { username: "user", email: "user@test.co" },
                 });
-                return this.setState({ redirectTo: "ssc/order" });
+                return this.setState({ redirectTo: "/ssc/order" });
             }
             if (username === "admin") {
                 this.props.updateAuth({
@@ -42,7 +42,7 @@ class Login extends Component {
                     },
                     isAdmin: true,
                 });
-                return this.setState({ redirectTo: "ssc/admin" });
+                return this.setState({ redirectTo: "/ssc/admin" });
             }
         }
 

@@ -20,8 +20,8 @@ class Header extends Component {
         // If the route has changed
         if (this.props.location !== prevProps.location) {
             this.setState({ redirectTo: false });
-            if (this.props.location.pathname === "/admin") {
-                this.props.updatePrevPage("/admin");
+            if (this.props.location.pathname === "/ssc/admin") {
+                this.props.updatePrevPage("/ssc/admin");
             } else {
                 this.props.updatePrevPage(false);
             }
@@ -29,15 +29,15 @@ class Header extends Component {
     }
 
     handleLogout() {
-        this.setState({ redirectTo: "ssc/logout" });
+        this.setState({ redirectTo: "/ssc/logout" });
     }
 
     handleLogin() {
-        this.setState({ redirectTo: "ssc/login" });
+        this.setState({ redirectTo: "/ssc/login" });
     }
 
     handleAdmin() {
-        this.setState({ redirectTo: "ssc/admin" });
+        this.setState({ redirectTo: "/ssc/admin" });
     }
 
     render() {
@@ -49,8 +49,8 @@ class Header extends Component {
                     {(!this.props.auth.user ||
                         (this.props.auth.user &&
                             this.props.auth.isAdmin &&
-                            this.props.location.pathname !== "/admin")) &&
-                    this.props.location.pathname !== "/login" ? (
+                            this.props.location.pathname !== "/ssc/admin")) &&
+                    this.props.location.pathname !== "/ssc/login" ? (
                         <p
                             className="header_options_option"
                             onClick={this.handleAdmin}
@@ -67,7 +67,7 @@ class Header extends Component {
                         >
                             Logout
                         </p>
-                    ) : this.props.location.pathname !== "/login" ? (
+                    ) : this.props.location.pathname !== "/ssc/login" ? (
                         <p
                             className="header_options_option"
                             onClick={this.handleLogin}
@@ -76,9 +76,14 @@ class Header extends Component {
                         </p>
                     ) : null}
                 </div>
-                <Link to="/ssc">
+                <a
+                    onClick={(e) => {
+                        e.preventDefault();
+                        this.setState({ redirectTo: "/ssc" });
+                    }}
+                >
                     <p className="header_text">Simons Sweet Co.</p>
-                </Link>
+                </a>
             </div>
         );
     }
