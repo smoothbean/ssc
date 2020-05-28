@@ -70,55 +70,55 @@ class Order extends Component {
                 if (pack.qty !== 1) lowestCanCoverIt = false;
             });
 
+            let chosenPack = false;
+
             // If it only takes one of any of our packs then our lowest qty pack can cover it
             if (lowestCanCoverIt) {
-                return this.setState({
-                    itemised: [{ qty: 1, pack: ratedPacks[0].pack }],
-                    total: ratedPacks[0].pack.size,
-                    isOrderSuccessModalOpen: true,
+                chosenPack = ratedPacks[0].pack;
+            }
+
+            if (!chosenPack) {
+                // Else check the wastage of each option
+
+                // Sort packs , first by Qty needed to fulfill size and then by amount of sweets it will provide
+                // Doing this means it prefers the least amount of packaging
+                let sortQtyAndSweets = ratedPacks
+                    .sort((a, b) => a.qty - b.qty)
+                    .sort((a, b) => a.sweets - b.sweets);
+
+                // Loop through the sorted pack
+                sortQtyAndSweets.forEach((item, key) => {
+                    if (!chosenPack) {
+                        // Check the wastage (excess sweets)
+                        let wastage = remainingSize - item.sweets;
+
+                        // Get the difference between wastage and 0
+                        let difference = Math.abs(0 - wastage);
+
+                        // Check that the difference is no greater than the remaining size
+                        if (difference < remainingSize) {
+                            chosenPack = item.pack;
+                        } else {
+                            // If the wastage is more than the remaining order than try and go for a lower pack
+
+                            // Check a lower pack exists
+                            if (sortQtyAndSweets[key + 1]) {
+                                return;
+                            } else {
+                                // If a lower pack doesnt exist , use this one as it is the last
+                                chosenPack = item.pack;
+                            }
+                        }
+                    }
                 });
             }
 
-            // Else check the wastage of each option
-
-            // Sort packs , first by Qty needed to fulfill size and then by amount of sweets it will provide
-            // Doing this means it prefers the least amount of packaging
-            let sortQtyAndSweets = ratedPacks
-                .sort((a, b) => a.qty - b.qty)
-                .sort((a, b) => a.sweets - b.sweets);
-
-            let chosenPack = false;
-            // Loop through the sorted pack
-            sortQtyAndSweets.forEach((item, key) => {
-                if (!chosenPack) {
-                    // Check the wastage (excess sweets)
-                    let wastage = remainingSize - item.sweets;
-
-                    // Get the difference between wastage and 0
-                    let difference = Math.abs(0 - wastage);
-
-                    // Check that the difference is no greater than the remaining size
-                    if (difference < remainingSize) {
-                        chosenPack = item.pack;
-                    } else {
-                        // If the wastage is more than the remaining order than try and go for a lower pack
-
-                        // Check a lower pack exists
-                        if (sortQtyAndSweets[key + 1]) {
-                            return;
-                        } else {
-                            // If a lower pack doesnt exist , use this one as it is the last
-                            chosenPack = item.pack;
-                        }
-                    }
-                }
-            });
-
             // If it is already itemised then increase qty
             let qKey = Object.keys(itemised).find(
-                (i) => itemised[i].pack.size === chosenPack.size
+                (i) => Number(itemised[i].pack.size) === Number(chosenPack.size)
             );
-            if (qKey) {
+
+            if (qKey || qKey === "0") {
                 itemised[qKey].qty++;
             } else {
                 // Else push it to the arr
@@ -128,6 +128,8 @@ class Order extends Component {
             total += chosenPack.size;
             remainingSize = remainingSize - chosenPack.size;
         }
+
+        console.log(itemised, "down-");
 
         this.setState({
             itemised,
