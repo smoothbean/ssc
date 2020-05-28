@@ -29,15 +29,15 @@ class Header extends Component {
     }
 
     handleLogout() {
-        this.setState({ redirectTo: "/logout" });
+        this.setState({ redirectTo: "ssc/logout" });
     }
 
     handleLogin() {
-        this.setState({ redirectTo: "/login" });
+        this.setState({ redirectTo: "ssc/login" });
     }
 
     handleAdmin() {
-        this.setState({ redirectTo: "/admin" });
+        this.setState({ redirectTo: "ssc/admin" });
     }
 
     render() {

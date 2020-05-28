@@ -25,13 +25,13 @@ class App extends Component {
                 <div className="App">
                     <Header />
                     <Switch>
-                        <Route path="/logout" exact component={Logout} />
+                        <Route path="/ssc/logout" exact component={Logout} />
                         <Route
-                            path="/login"
+                            path="/ssc/login"
                             exact
                             render={() => {
                                 return this.props.auth.user ? (
-                                    <Redirect to="/" />
+                                    <Redirect to="/ssc" />
                                 ) : (
                                     <Login />
                                 );
@@ -39,10 +39,10 @@ class App extends Component {
                         />
                         <Route
                             exact
-                            path="/admin"
+                            path="/ssc/admin"
                             render={() => {
                                 return !this.props.auth.isAdmin ? (
-                                    <Redirect to="/login" />
+                                    <Redirect to="/ssc/login" />
                                 ) : (
                                     <Admin />
                                 );

@@ -34,7 +34,7 @@ class Order extends Component {
 
     handleOrder(id) {
         if (!this.props.auth.user)
-            return this.setState({ redirectTo: "/login" });
+            return this.setState({ redirectTo: "ssc/login" });
         if (this.props.auth.isAdmin) return alert("Login to a user account.");
         this.setState({
             size: this.props.packs.find((p) => p.id === Number(id)).size,
@@ -44,7 +44,7 @@ class Order extends Component {
 
     handleCustomOrder() {
         if (!this.props.auth.user)
-            return this.setState({ redirectTo: "/login" });
+            return this.setState({ redirectTo: "ssc/login" });
         if (this.props.auth.isAdmin) return alert("Login to a user account.");
         if (!this.state.size) return alert("Please enter a qty.");
         if (!Number(this.state.size))
