@@ -28,13 +28,13 @@ class Login extends Component {
             return alert("Please enter your username and password");
 
         if (password === "password") {
-            if (username === "user") {
+            if (username === "user" || username === "User") {
                 this.props.updateAuth({
                     user: { username: "user", email: "user@test.co" },
                 });
                 return this.setState({ redirectTo: "/ssc/order" });
             }
-            if (username === "admin") {
+            if (username === "admin" || username === "Admin") {
                 this.props.updateAuth({
                     user: {
                         username: "admin",
