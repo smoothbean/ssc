@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/scc/static/css/main.9d50c557.chunk.css",
+    "main.js": "/scc/static/js/main.d69fad9b.chunk.js",
+    "main.js.map": "/scc/static/js/main.d69fad9b.chunk.js.map",
+    "runtime-main.js": "/scc/static/js/runtime-main.2384ba4c.js",
+    "runtime-main.js.map": "/scc/static/js/runtime-main.2384ba4c.js.map",
+    "static/js/2.bb47a19f.chunk.js": "/scc/static/js/2.bb47a19f.chunk.js",
+    "static/js/2.bb47a19f.chunk.js.map": "/scc/static/js/2.bb47a19f.chunk.js.map",
+    "index.html": "/scc/index.html",
+    "precache-manifest.8245ba312cf68742df847c4606b139f3.js": "/scc/precache-manifest.8245ba312cf68742df847c4606b139f3.js",
+    "service-worker.js": "/scc/service-worker.js",
+    "static/css/main.9d50c557.chunk.css.map": "/scc/static/css/main.9d50c557.chunk.css.map",
+    "static/js/2.bb47a19f.chunk.js.LICENSE.txt": "/scc/static/js/2.bb47a19f.chunk.js.LICENSE.txt",
+    "static/media/spog.png": "/scc/static/media/spog.2ef8f0ae.png",
+    "static/media/App.scss": "/scc/static/media/sweets.1b1fe88e.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2384ba4c.js",
+    "static/js/2.bb47a19f.chunk.js",
+    "static/css/main.9d50c557.chunk.css",
+    "static/js/main.d69fad9b.chunk.js"
+  ]
+}
