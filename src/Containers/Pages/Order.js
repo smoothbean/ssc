@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Redirect, Link } from "react-router-dom";
 
 import Loading from "../../Components/Loading";
@@ -60,97 +59,62 @@ class Order extends Component {
         let size = Number(this.state.size);
         let remainingSize = size;
         let itemised = [];
+        let total = 0;
 
-        let ratedPacks = this.getBestPacksForSize(remainingSize);
+        while (remainingSize > 0) {
+            let ratedPacks = this.getBestPacksForSize(remainingSize);
 
-        // Sort packs , first by Qty needed to fulfill size and then by amount of sweets it will provide
-        // Doing this means it prefers the least amount of packaging
-        let sortQtyAndSweets = ratedPacks
-            .sort((a, b) => a.qty - b.qty)
-            .sort((a, b) => a.sweets - b.sweets);
+            // Sort packs , first by Qty needed to fulfill size and then by amount of sweets it will provide
+            // Doing this means it prefers the least amount of packaging
+            let sortQtyAndSweets = ratedPacks
+                .sort((a, b) => a.qty - b.qty)
+                .sort((a, b) => a.sweets - b.sweets);
 
-        let chosenPack = false;
-        // Loop through the sorted pack
-        sortQtyAndSweets.forEach((item, key) => {
-            if (!chosenPack) {
-                // Check the wastage (excess sweets)
-                let wastage = remainingSize - item.sweets;
+            let chosenPack = false;
+            // Loop through the sorted pack
+            sortQtyAndSweets.forEach((item, key) => {
+                if (!chosenPack) {
+                    // Check the wastage (excess sweets)
+                    let wastage = remainingSize - item.sweets;
 
-                // Get the difference between wastage and 0
-                let difference = Math.abs(0 - wastage);
+                    // Get the difference between wastage and 0
+                    let difference = Math.abs(0 - wastage);
 
-                console.log(wastage, difference, "-");
-
-                // Check that the difference is no greater than the remaining size
-                if (difference < remainingSize) {
-                    chosenPack = item.pack;
-                } else {
-                    // If the wastage is more than the remaining order than try and go for a lower pack
-
-                    // Check a lower pack exists
-                    if (sortQtyAndSweets[key + 1]) {
-                        return;
-                    } else {
-                        // If a lower pack doesnt exist , use this one as it is the last
+                    // Check that the difference is no greater than the remaining size
+                    if (difference < remainingSize) {
                         chosenPack = item.pack;
+                    } else {
+                        // If the wastage is more than the remaining order than try and go for a lower pack
+
+                        // Check a lower pack exists
+                        if (sortQtyAndSweets[key + 1]) {
+                            return;
+                        } else {
+                            // If a lower pack doesnt exist , use this one as it is the last
+                            chosenPack = item.pack;
+                        }
                     }
                 }
+            });
+
+            // If it is already itemised then increase qty
+            let qKey = Object.keys(itemised).find(
+                (i) => itemised[i].pack.size === chosenPack.size
+            );
+            if (qKey) {
+                itemised[qKey].qty++;
+            } else {
+                // Else push it to the arr
+                itemised.push({ qty: 1, pack: chosenPack });
             }
-        });
 
-        console.log(ratedPacks, sortQtyAndSweets, chosenPack);
-
-        // let sizes = [];
-        // let sweets = {};
-
-        // while (remainingSize > 0) {
-        //     // See how many it would take of each pack size for the remaining size
-        //     this.props.packs.forEach((pack) => {
-        //         sizes.push({
-        //             pack,
-        //             qty: remainingSize / pack.size,
-        //         });
-        //     });
-
-        //     // Create a rating for each pack
-        //     let ratings = [];
-        //     sizes.forEach((s) => {
-        //         let rating = 0;
-        //         let obj = {
-        //             pack: s.pack,
-        //             rating: s.qty,
-        //         };
-        //         // Do not add the rating if it is 0
-        //         console.log(obj, s.qty, "----");
-        //         ratings.push(obj);
-        //     });
-
-        //     // Get the closest rating to 1
-        //     let closestToZero = ratings.sort(
-        //         (a, b) => Math.abs(1 - a.rating) - Math.abs(1 - b.rating)
-        //     );
-        //     let bestRating = closestToZero[0];
-
-        //     // If it is already itemised then increase qty
-        //     let qKey = Object.keys(itemised).find(
-        //         (i) => itemised[i].size === bestRating.pack.size
-        //     );
-        //     if (qKey) {
-        //         itemised[qKey].qty++;
-        //     } else {
-        //         // Else push it to the arr
-        //         itemised.push({ qty: 1, pack: bestRating.pack });
-        //     }
-
-        //     console.log(ratings, bestRating);
-
-        //     remainingSize = remainingSize - bestRating.pack.size;
-        //     sizes = [];
-        //     sweets = {};
-        // }
+            total += chosenPack.size;
+            remainingSize = remainingSize - chosenPack.size;
+        }
 
         this.setState({
             itemised,
+            total,
             isOrderSuccessModalOpen: true,
         });
     }
@@ -228,13 +192,19 @@ class Order extends Component {
                 >
                     <div className="col">
                         <p className="title">Order Successful</p>
-                        <p className="title">Qty: {this.state.size}</p>
-                        {this.state.itemised &&
-                            this.state.itemised.map((i, key) => (
-                                <p key={key} className="item">
-                                    x{i.qty} - {i.pack.size}
+                        <p className="title">Qty ordered: {this.state.size}</p>
+                        {this.state.itemised && (
+                            <Fragment>
+                                {this.state.itemised.map((i, key) => (
+                                    <p key={key} className="item">
+                                        x{i.qty} - {i.pack.size}
+                                    </p>
+                                ))}
+                                <p className="title">
+                                    Qty shipped: {this.state.total}
                                 </p>
-                            ))}
+                            </Fragment>
+                        )}
                         <Button
                             text="Buy more sweets"
                             onClick={this.toggleOrderSuccessModal}
@@ -250,13 +220,6 @@ class Order extends Component {
 const mapStateToProps = (store) => {
     const { auth, loading, packs } = store;
     return { auth, loading, packs };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // removePack: bindActionCreators(removePack, dispatch),
-        // addPack: bindActionCreators(addPack, dispatch),
-    };
 };
 
 export default connect(mapStateToProps)(Order);
